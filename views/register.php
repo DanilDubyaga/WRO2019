@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/views/style.css">
 	<style>
 		.top-menu-li:first-child{
-				background-color: rgba(180, 180, 255, 0.2);
+			background-color: rgba(180, 180, 255, 0.2);
 		}
 	</style>
 </head>
