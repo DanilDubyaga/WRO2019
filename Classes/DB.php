@@ -1,29 +1,30 @@
 <?php 
 
-class DB{
-	public static function connect(){
-		$mysqli = mysqli_connect("localhost", "root", "");
-		mysqli_select_db($mysqli, 'smartcity');
+class DB
+{
+	protected $dbh;
+	protected $className = 'stdClass';
 
-		return $mysqli;
+	public function __construct()
+	{
+		$this->dbh = new PDO('mysql:dbname=smartcity;host=localhost', 'root', '');
 	}
 
-	public static function query($sql){
-		$mysqli = self::connect();
-		$res = mysqli_query($mysqli, $sql);
-		$arr = [];
-		
-		while ($row = mysqli_fetch_row($res)) {
-			$arr[] = $row;
-		}
-
-		return $arr;
+	public function setClassName($className)
+	{
+		$this->className = $className;
 	}
 
-	public static function exec($sql){
-		$mysqli = self::connect();
-		$res = mysqli_query($mysqli, $sql);
+	public function query($sql, $params = [])
+	{
+		$sth = $this->dbh->prepare($sql);
+		$sth->execute($params);
+		return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
+	}
 
-		return $res;
+	public function execute($sql, $params = [])
+	{
+		$sth = $this->dbh->prepare($sql);
+		return $sth->execute($params);;
 	}
 }

@@ -1,11 +1,13 @@
 <?php 
 
-class UserController{
+class UserController
+{
 	public $name;
 	public $password;
 	public $email;
 
-	public function register(){
+	public function register()
+	{
 		$user = new User();
 		$user->name = $this->name;
 		$user->password = $this->password;
