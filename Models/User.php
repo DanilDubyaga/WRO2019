@@ -20,7 +20,8 @@ class User extends AbstractModel
 	{
 		$db = new DB();
 		$db->setClassName('User');
-		if ($db->query('SELECT * FROM '. static::$table .' WHERE email = :email', [':email' => $this->email])) {
+		$sql = 'SELECT * FROM '. static::$table .' WHERE email = :email';
+		if ($db->query($sql, [':email' => $this->email])) {
 			return true;
 		}
 		return false;
